@@ -40,4 +40,19 @@ def random_word_2(n, length):
         word.append(random.choice([x for x in gens if x != -word[-1]]))
     return word
 
+result = []
+for L in range(1,9):
+    rt = []
+    for i in range(100):
+        word = random_word_1(4, L)
+        crossings = braid_to_pd(word, 4)
+        pd = PlanarDiagram(crossings)
+        comps = pd.find_components()
+        jp = jones(pd)
+        terms = len(sympy.Add.make_args(sympy.expand(jp)))
+        rt.append((len(comps),terms,))
+    result.append(rt)
+    print(L)
+
+print(result)
 
